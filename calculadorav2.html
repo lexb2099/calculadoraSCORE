@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html ng-app="calcScore2" lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Calculadora de riesgo cardiovascular a 10 años</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/page.css">
+</head>
+<body>
+	<div class="container" >
+		<div class="row">
+			<div class="col-md-7" style="padding-bottom:10px;">
+				<h3 class="text-justify">Calculadora de riesgo cardiovascular a 10 años</h3>
+				
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-3" style="padding-top:20px;">
+				<ul class="nav nav-pills nav-pills-ssm">
+					<li><a href="calculadora.php">Inicio</a></li>
+            		<li><a href="mailto:lxd.2099@gmail.com" target="_blank">Envía un correo al autor</a></li>
+				</ul>
+			</div><!--/.nav-pills -->
+		</div>
+	</div><!--/ header -->
+	<div class="navbar navbar-default-ssm navbar" role="navigation">
+	    <div class="container">
+	    <div class="navbar-header">
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        </button>
+	    </div>
+	    <div class="collapse navbar-collapse">
+	        <ul class="nav navbar-nav">
+                <li><a href="#">Bienvenid@</a></li>
+                <!-- 
+	            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Prueba<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Prueba inter</a></li>
+                    </ul>
+	            </li>
+	            -->
+	        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Invitado <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Usuario: Invitado</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Salir</a></li>
+                    </ul>
+                </li> 
+            </ul>
+	    </div><!--/.nav-collapse -->
+	    </div>
+	</div>
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="#">Inicio</a></li>
+			<li class="active">Calculadora SCORE</li>
+		</ol>
+	</div>
+	<div class="container">
+		<div class="content" ng-controller="ScoreController as scoreCalc">
+			<div class="row">
+				<h3 style="text-align:center;">Calculadora SCORE de riesgo cardiovascular a 10 años</h3>
+				<h4 style="text-align:center;">Seleccione una opción de los listados desplegables</h4>
+				<div class="col-md-12">
+					<div class="panel">
+						<div class="panel-body">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label for="dlSexo" class="col-md-3 control-label">Sexo:</label>
+									<div class="col-md-6">
+										<select ng-change="scoreCalc.loadIDs()" id="dlSexo" class="form-control" ng-model="sexoSelect">
+											<option></option>
+											<option ng-repeat="sexoP in scoreCalc.anios[0].sexoInfo | orderBy:'descripcion'" value="{{sexoP.id}}">{{sexoP.descripcion}}</option>
+										</select>	
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+								<div class="form-group">
+									<label for="dlEdad" class="col-md-3 control-label">Edad:</label>
+									<div class="col-md-6">
+										<select ng-change="scoreCalc.loadIDs()" id="dlEdad" class="form-control" ng-model="edadSelect">
+											<option></option>
+											<option ng-repeat="edadP in scoreCalc.anios[0].edadInfo | orderBy:'edad'" value="{{edadP.id}}">{{edadP.edad}}</option>
+										</select>	
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+								<div class="form-group">
+									<label for="dlFuma" class="col-md-3 control-label">¿Es fumador?:</label>
+									<div class="col-md-6">
+										<select ng-change="scoreCalc.loadIDs()" id="dlFuma" class="form-control" ng-model="fumaSelect">
+											<option></option>
+											<option ng-repeat="fumaP in scoreCalc.anios[0].fumaInfo" value="{{fumaP.id}}">{{fumaP.esFumador}}</option>
+										</select>	
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+								<div class="form-group">
+									<label for="dlTAS" class="col-md-3 control-label">Tensión Arterial Sistólica (Max.) -mmHg-:</label>
+									<div class="col-md-6">
+										<select ng-change="scoreCalc.loadIDs()" id="dlTAS" class="form-control" ng-model="tasSelect">
+											<option></option>
+											<option ng-repeat="tasP in scoreCalc.anios[0].tasInfo" value="{{tasP.id}}">{{tasP.descripcion}}</option>
+										</select>	
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+								<div class="form-group">
+									<label for="dlColesterol" class="col-md-3 control-label">Colesterol total -mg/dl-:</label>
+									<div class="col-md-6">
+										<select ng-change="scoreCalc.loadIDs()" id="dlColesterol" class="form-control" ng-model="colesterolSelect">
+											<option></option>
+											<option ng-repeat="colesterolP in scoreCalc.anios[0].colesterolInfo" value="{{colesterolP.Nivel}}">{{colesterolP.NivelColesterol}}</option>
+										</select>	
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-3"></div>
+									<div class="col-md-6">
+										<button type="button" ng-click="scoreCalc.loadScore()" class="btn btn-sm panel-info-obras btn-find">Consultar </button>
+									</div>
+									<div class="col-md-3"></div>
+								</div>
+								<div class="form-group" style="text-align: center;" id="details" ng-animate="{show:'animate-show',hide: 'animate-hide'}" ng-hide="scoreCalc.isOut" ng-repeat="score in scoreCalc.anios[0].scoreInfo | filter:{IDRisk:scoreCalc.scoreDataJS}:true">
+									<h3>Riesgo de muerte a 10 años causa cardiovascular</h3>
+									<div class="col-md-3"></div>
+									<div class="col-md-6">
+										<table class="table">
+											<tbody>
+												<tr>
+													<td><h4>Nivel de riesgo: {{score.Risk}}</h4></td>
+												
+												</tr>
+												<tr class="{{score.classRisk}}">
+													<td>{{score.DescRisk}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-3"></div>
+									
+									
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app_scorev2.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>
